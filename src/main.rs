@@ -72,13 +72,12 @@ enum MyError {
 }
 
 impl error::ResponseError for MyError {
-    
     fn error_response(&self) -> HttpResponse {
         HttpResponse::build(self.status_code())
             .insert_header(ContentType::html())
             .body(self.to_string())
     }
-    
+
     fn status_code(&self) -> StatusCode {
         match *self {
             MyError::InternalError => StatusCode::INTERNAL_SERVER_ERROR,
